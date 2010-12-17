@@ -12,6 +12,7 @@ will use multicast for discovery, it can also be configured to only use TCP/IP f
 is not available or preferred.
 
 http://www.hazelcast.com
+
 http://www.hazelcast.com/documentation.jsp
 
 == Configuration

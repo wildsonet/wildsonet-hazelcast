@@ -12,7 +12,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "WildSoNet-Hazelcast"
+  gem.name = "wildsonet-hazelcast"
   gem.homepage = "http://github.com/marekjelen/wildsonet-hazelcast"
   gem.license = "MIT"
   gem.summary = %Q{Hazelcast integration}
