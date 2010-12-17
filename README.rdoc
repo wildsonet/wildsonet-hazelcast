@@ -1,6 +1,57 @@
-= wildsonet-hazelcast
+= WildSoNet::Hazelcast
 
-Description goes here.
+Hazelcast is an open source clustering and highly scalable data distribution platform for Java, which is:
+
+* Lightning-fast; thousands of operations/sec.
+* Fail-safe; no losing data after crashes.
+* Dynamically scales as new servers added.
+* Super-easy to use; include a single jar.
+
+Hazelcast is pure Java. JVMs that are running Hazelcast will dynamically cluster. Although by default Hazelcast
+will use multicast for discovery, it can also be configured to only use TCP/IP for environments where multicast
+is not available or preferred.
+
+http://www.hazelcast.com
+http://www.hazelcast.com/documentation.jsp
+
+== Configuration
+
+To configure Hazelcast put "hazelcast.config" property filled with the path to Hazelcast configuration file
+into system properties. For example with Rails, you might want to do something like
+
+  java.lang.System.setProperty("hazelcast.config", File.join(Rails.root, "config", "hazelcast.xml"))
+
+== Usage
+
+=== Hazelcast core
+
+==== Maps
+
+To get map(hash) with the name map_name use
+
+  map = WildSoNet::Hazelcast.map(map_name)
+
+now to save to data into the map
+
+  map[key] = value
+
+and to get back
+
+  map[key]
+
+==== Queue
+
+  #TBD#
+
+=== SessionStore
+
+==== Rack
+
+  #TBD#
+
+==== Rails
+
+  WildSoNet::Application.config.session_store(WildSoNet::Hazelcast::SessionStore)
 
 == Contributing to wildsonet-hazelcast
  
@@ -14,6 +65,5 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Marek Jelen. See LICENSE.txt for
-further details.
+Copyright (c) 2010 Marek Jelen. See LICENSE.txt for further details.
 
