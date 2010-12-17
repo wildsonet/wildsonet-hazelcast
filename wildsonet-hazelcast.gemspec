@@ -4,8 +4,8 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{wildsonet-hazelcast}
-  s.version = "0.0.0"
+  s.name = %q{WildSoNet-Hazelcast}
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marek Jelen"]
@@ -18,25 +18,19 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".idea/.rakeTasks",
-    ".idea/encodings.xml",
-    ".idea/misc.xml",
-    ".idea/modules.xml",
-    ".idea/vcs.xml",
-    ".idea/wildsonet-hazelcast.iml",
-    ".idea/workspace.xml",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "WildSoNet::Hazelcast.gemspec",
     "jars/hazelcast-all.jar",
     "lib/core.rb",
     "lib/session_store.rb",
     "lib/wildsonet-hazelcast.rb",
     "test/helper.rb",
-    "test/test_wildsonet-hazelcast.rb"
+    "test/test_wildsonet-hazelcast.rb",
+    "wildsonet-hazelcast.gemspec"
   ]
   s.homepage = %q{http://github.com/marekjelen/wildsonet-hazelcast}
   s.licenses = ["MIT"]
