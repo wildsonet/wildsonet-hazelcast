@@ -15,6 +15,13 @@ http://www.hazelcast.com
 
 http://www.hazelcast.com/documentation.jsp
 
+== Status
+
+* No documentation
+* No tests
+
+Not production ready … experimental … proof of concept.
+
 == Configuration
 
 To configure Hazelcast put "hazelcast.config" property filled with the path to Hazelcast configuration file
@@ -42,7 +49,21 @@ and to get back
 
 ==== Queue
 
-  #TBD#
+To publish a message in a queue
+
+  WildSoNet::Hazelcast.queue("name_of_queue").put(message)
+
+and then to retrieve the message
+
+  Thread.new do
+    while true
+      msg = WildSoNet::Hazelcast.queue("name_of_queue").take()
+      # Do something with the queue
+    end
+  end
+
+take() blocks current thread until new messages arrives to the queue and returns it.
+To increase performance more threads may be utilized to take messages from queue.
 
 === SessionStore
 
