@@ -4,7 +4,7 @@ require 'rack/response'
 
 require 'digest/sha1'
 
-module WildSoNet
+module Wildsonet
 
   module Hazelcast
 
@@ -27,6 +27,8 @@ module WildSoNet
       def set_session status, headers, content, env
         sid = env["students.session.id"]
         response = ::Rack::Response.new(content, status, headers)
+        session = env["rack.session"]
+        Wildsonet::Hazelcast.map("sessions").put(sid, Marshal.dump(session.extract)) if session.changed? or session.cleared?
         response.set_cookie("session.id", sid)
         response.to_a
       end
@@ -34,7 +36,13 @@ module WildSoNet
       def get_session env
         sid = ::Rack::Request.new(env).cookies["session.id"]
         sid = self.generate_sid if not sid
-        env["rack.session"] = Session.new(sid)
+        data = Wildsonet::Hazelcast.map("sessions").get(sid)
+        unless data
+          data = {}
+        else
+          data = Marshal.load(data)
+        end
+        env["rack.session"] = Session.new(data)
         env["students.session.id"] = sid
       end
 
@@ -42,33 +50,59 @@ module WildSoNet
 
     class Session
 
-      def initialize sid
-        @data = WildSoNet::Hazelcast.map("session.#{sid}")
+      def initialize data
+        @data = data
+        @changes = {}
+        @cleared = false
+        @changed = false
       end
 
       def [] key
-        value = @data[key.to_s]
-        value ? Marshal.load(value) : value
+        if @changes[key]
+          @changes[key]
+        else
+          @data[key]
+        end
       end
 
       def []= key, value
-        @data[key.to_s] = Marshal.dump(value.to_s)
+        @changes[key] = value
+        @changed = true
       end
 
       def clear
         @data.clear
+        @changes = {}
+        @changed = true
+        @cleared = true
       end
 
       def delete key
-        @data.remove(key.to_s)
+        @data.remove(key)
+        @changed = true
       end
 
       def destroy
-        @data.clear
+        self.clear
       end
 
       def key? key
-        @data.containsKey(key.to_s)
+        stat = @data.key?(key)
+        stat = @changes.key?(key) unless stat
+        return stat
+      end
+
+      def changed?
+        @changed
+      end
+
+      def cleared?
+        @cleared
+      end
+
+      def extract base = nil
+        base = @data unless base
+        base.merge(@changes)
       end
 
     end

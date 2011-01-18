@@ -1,4 +1,4 @@
-module WildSoNet
+module Wildsonet
   module Hazelcast
 
     java_import "com.hazelcast.core.Hazelcast"

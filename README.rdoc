@@ -1,4 +1,4 @@
-= WildSoNet::Hazelcast
+= Wildsonet::Hazelcast
 
 Hazelcast is an open source clustering and highly scalable data distribution platform for Java, which is:
 
@@ -37,7 +37,7 @@ into system properties. For example with Rails, you might want to do something l
 
 To get map(hash) with the name map_name use
 
-  map = WildSoNet::Hazelcast.map(map_name)
+  map = Wildsonet::Hazelcast.map(map_name)
 
 now to save to data into the map
 
@@ -51,13 +51,13 @@ and to get back
 
 To publish a message in a queue
 
-  WildSoNet::Hazelcast.queue("name_of_queue").put(message)
+  Wildsonet::Hazelcast.queue("name_of_queue").put(message)
 
 and then to retrieve the message
 
   Thread.new do
     while true
-      msg = WildSoNet::Hazelcast.queue("name_of_queue").take()
+      msg = Wildsonet::Hazelcast.queue("name_of_queue").take()
       # Do something with the queue
     end
   end
@@ -73,7 +73,14 @@ To increase performance more threads may be utilized to take messages from queue
 
 ==== Rails
 
-  WildSoNet::Application.config.session_store(WildSoNet::Hazelcast::SessionStore)
+  #TBD#
+
+=== Versions
+
+==== 0.0.5
+
+* Dejewelerize
+* Rename module to Wildsonet
 
 == Contributing to wildsonet-hazelcast
  
